@@ -15,6 +15,10 @@ const AllocationForm = (props) => {
                 setCost("");
                 return;
             }
+            if(cost < allocated) {
+                alert("The value cannot be less than current allocation");
+                setCost("");
+                return;
 
         const expense = {
             name: name,
