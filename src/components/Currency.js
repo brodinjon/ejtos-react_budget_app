@@ -1,36 +1,49 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 const Currency = () => {
-  const { dispatch } = useContext(AppContext);
-
-  const changeLocation = (val) => {
+  const { currency,dispatch } = useContext(AppContext);
+  const [selectedCurrency, setSelectedCurrency] = useState(currency);
+  const handleCurrencyChange = (event) => {
+    const newCurrency = event.target.value;
+    setSelectedCurrency(newCurrency);
     dispatch({
       type: "CHG_CURRENCY",
-      payload: val,
+      payload: newCurrency,
     });
-  };
+  }
 
-  return (
-    <div className="alert alert-secondary d-flex  flex-md-row">
-      Currency  
-      {
+  return (<div
+        style={{
+            backgroundColor: 'lightgreen',
+            padding: '0.5rem',
+            marginleft: '2rem',
+        }}
+    >
+        <div>
+        <label htmlFor="inputCurrencySelect01">Currency ({selectedCurrency})</label>
         <select
-          className="form-select form-select-sm mx-lg-2  w-75"
-          name="Currency"
-          id="Currency"
-          onChange={(event) => changeLocation(event.target.value)}
+            className="custom-select"
+            id="inputCurrencySelect01"
+            value={selectedCurrency}
+            onChange={handleCurrencyChange}
         >
-        
-
-          <option value="$">$ Dollar</option>
-          <option value="£">£ Pound</option>
-          <option value="€">€ Euro</option>
-          <option value="₹">₹ Ruppee</option>
+            <option defaultValue>Choose Currency</option>
+            <option value="Dollar $" name="dollar">
+                Dollar $
+            </option>
+            <option value="Pounds £" name="pounds">
+                Pounds £
+            </option>
+            <option value="Euro €" name="euro">
+                Euro €
+            </option>
+            <option value="Ruppee ₹" name="ruppee">
+                Ruppee ₹
+            </option>
         </select>
-      }
     </div>
-  );
+    </div>
+)
 };
-
 export default Currency;
